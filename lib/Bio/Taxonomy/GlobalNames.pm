@@ -855,9 +855,9 @@ L<http://annocpan.org/dist/Bio-Taxonomy-GlobalNames>
 
 L<http://cpanratings.perl.org/d/Bio-Taxonomy-GlobalNames>
 
-=item * Search CPAN
+=item * Search MetaCPAN
 
-L<http://search.cpan.org/dist/Bio-Taxonomy-GlobalNames/>
+L<http://search.mcpan.org/dist/Bio-Taxonomy-GlobalNames/>
 
 =item * GitHub
 
