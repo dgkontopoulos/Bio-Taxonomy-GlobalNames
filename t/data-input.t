@@ -7,7 +7,7 @@ use warnings FATAL => 'all';
 use Test::Exception;
 use Test::More;
 
-plan tests => 8;
+plan tests => 10;
 
 use Bio::Taxonomy::GlobalNames;
 
@@ -58,6 +58,33 @@ use Bio::Taxonomy::GlobalNames;
     is( $data[0]->supplied_name_string,
         'エラブウミヘビ',
         'Send a POST request with data from a Unicode file.' );
+}
+
+# Make sure that input files with single or double quotes are read correctly.
+{
+    my $path = q{};
+
+    if ( $0 =~ /data-input[.]t$/ )
+    {
+        $path = $`;
+    }
+
+    my $query =
+      Bio::Taxonomy::GlobalNames->new( file => $path . 'input-quotes.txt', );
+
+    my $output = $query->post();
+
+    my @data = @{ $output->data };
+    is(
+        $data[0]->supplied_name_string,
+        'Xenopus laevis',
+        'Send a POST request from a file that contains single quotes.'
+    );
+    is(
+        $data[1]->supplied_name_string,
+        'Drosophila melanogaster',
+        'Send a POST request from a file that contains double quotes.'
+    );
 }
 
 # Make sure that objects with input in names, file and data die,

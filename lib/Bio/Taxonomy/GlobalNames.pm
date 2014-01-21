@@ -15,11 +15,11 @@ Bio::Taxonomy::GlobalNames - Perlish OO bindings to the L<Global Names Resolver|
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -206,7 +206,7 @@ sub get
 
     # Create the target url.
     my $url =
-        'http://resolver.globalnames.org/name_resolvers.json' 
+        'http://resolver.globalnames.org/name_resolvers.json'
       . $name
       . '&resolve_once='
       . $self->resolve_once
@@ -276,6 +276,9 @@ sub post
         open my $fh, '<:encoding(UTF-8)', $self->file;
 
         $body->{'data'} = <$fh>;
+
+        # Remove single and double quotes from the file's contents.
+        $body->{'data'} =~ s/['"]//g;
 
         close $fh;
     }
@@ -803,7 +806,7 @@ sub object
     {
         $input = [];
     }
-    
+
     # If something isn't defined, set it as the empty string.
     foreach ( 'context_data_source_id', 'context_clade' )
     {

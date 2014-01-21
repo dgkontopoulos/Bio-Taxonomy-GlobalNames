@@ -9,6 +9,7 @@ t/pod-coverage.t
 t/pod.t
 t/data-input.t
 t/empty-input.txt
+t/input-quotes.txt
 t/unicode-input.txt
 examples/names.dat
 examples/resolve_names.pl
