@@ -1,6 +1,6 @@
 package Bio::Taxonomy::GlobalNames;
 
-use 5.8.1;
+use 5.10.0;
 use strict;
 use warnings;
 
@@ -8,6 +8,7 @@ use JSON qw(encode_json);
 use JSON::Parse qw(parse_json);
 use Moo;
 use REST::Client;
+use Scalar::Readonly;
 
 =head1 NAME
 
@@ -15,11 +16,11 @@ Bio::Taxonomy::GlobalNames - Perlish OO bindings to the L<Global Names Resolver|
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -383,6 +384,12 @@ sub format_results
     # If something isn't defined, set it as the empty string.
     foreach (@elements)
     {
+
+        # Avoid readonly variables caused by JSON conversion.
+        if ( Scalar::Readonly::readonly( $input->{$_} ) )
+        {
+            Scalar::Readonly::readonly_off( $input->{$_} );
+        }
         $input->{$_} //= q{};
     }
 
@@ -463,6 +470,12 @@ sub object
         # If something isn't defined, set it as the empty string.
         for ( 'supplied_name_string', 'supplied_id', 'results' )
         {
+
+            # Avoid readonly variables caused by JSON conversion.
+            if ( Scalar::Readonly::readonly( $species->{$_} ) )
+            {
+                Scalar::Readonly::readonly_off( $species->{$_} );
+            }
             $species->{$_} //= q{};
         }
 
@@ -611,6 +624,12 @@ sub object
         # If something isn't defined, set it as the empty string.
         foreach (@array)
         {
+
+            # Avoid readonly variables caused by JSON conversion.
+            if ( Scalar::Readonly::readonly( $hit->{$_} ) )
+            {
+                Scalar::Readonly::readonly_off( $hit->{$_} );
+            }
             $hit->{$_} //= q{};
         }
 
@@ -682,6 +701,12 @@ sub object
         # If something isn't defined, set it as the empty string.
         foreach ( 'title', 'id' )
         {
+
+            # Avoid readonly variables caused by JSON conversion.
+            if ( Scalar::Readonly::readonly( $source->{$_} ) )
+            {
+                Scalar::Readonly::readonly_off( $source->{$_} );
+            }
             $source->{$_} //= q{};
         }
 
@@ -753,6 +778,12 @@ sub object
     # If something isn't defined, set it as the empty string.
     foreach (@array)
     {
+
+        # Avoid readonly variables caused by JSON conversion.
+        if ( Scalar::Readonly::readonly( $input->{$_} ) )
+        {
+            Scalar::Readonly::readonly_off( $input->{$_} );
+        }
         $input->{$_} //= q{};
     }
 
@@ -810,6 +841,12 @@ sub object
     # If something isn't defined, set it as the empty string.
     foreach ( 'context_data_source_id', 'context_clade' )
     {
+
+        # Avoid readonly variables caused by JSON conversion.
+        if ( Scalar::Readonly::readonly( $input->[0]->{$_} ) )
+        {
+            Scalar::Readonly::readonly_off( $input->[0]->{$_} );
+        }
         $input->[0]->{$_} //= q{};
     }
 

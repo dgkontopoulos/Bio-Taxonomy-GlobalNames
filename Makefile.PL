@@ -1,4 +1,4 @@
-use 5.8.1;
+use 5.10.0;
 use strict;
 use warnings FATAL => 'all';
 use ExtUtils::MakeMaker;
@@ -18,10 +18,11 @@ WriteMakefile(
         'Test::Exception' => 0,
     },
     PREREQ_PM => {
-        'JSON'         => 2.90,
-        'JSON::Parse'  => 0.23,
-        'Moo'          => 1.003001,
-        'REST::Client' => 249,
+        'JSON'             => 2.90,
+        'JSON::Parse'      => 0.23,
+        'Moo'              => 1.003001,
+        'REST::Client'     => 249,
+        'Scalar::Readonly' => 0.03,
     },
     dist       => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean      => { FILES    => 'Bio-Taxonomy-GlobalNames-*' },

@@ -1,5 +1,8 @@
 Revision history for Bio-Taxonomy-GlobalNames
 
+0.03    2014-01-23 15:56
+    - Fixed a bug caused by JSON conversion to Perl data structures.
+
 0.02    2014-01-21 16:05
     - Input files with single or double quotes are now read correctly.
 
