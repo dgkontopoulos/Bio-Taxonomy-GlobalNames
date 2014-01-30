@@ -1,5 +1,8 @@
 Revision history for Bio-Taxonomy-GlobalNames
 
+0.04    2014-01-30 10:11
+    - Switched from Moo to Moo::Lax to avoid issues from FATAL warnings.
+
 0.03    2014-01-23 15:56
     - Fixed a bug caused by JSON conversion to Perl data structures.
 

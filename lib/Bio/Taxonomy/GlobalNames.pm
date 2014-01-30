@@ -6,7 +6,7 @@ use warnings;
 
 use JSON qw(encode_json);
 use JSON::Parse qw(parse_json);
-use Moo;
+use Moo::Lax;
 use REST::Client;
 use Scalar::Readonly;
 
@@ -16,11 +16,11 @@ Bio::Taxonomy::GlobalNames - Perlish OO bindings to the L<Global Names Resolver|
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 =head1 SYNOPSIS
 
@@ -355,7 +355,7 @@ The url at which you can access your results for 7 days.
 
 package Bio::Taxonomy::GlobalNames::Output;
 
-use Moo;
+use Moo::Lax;
 
 #################################################
 # Output object attributes with ro permissions. #
@@ -441,7 +441,7 @@ The name string in the query.
 
 package Bio::Taxonomy::GlobalNames::Output::Data;
 
-use Moo;
+use Moo::Lax;
 
 #################################################
 # Data object attributes with ro permissions.   #
@@ -575,7 +575,7 @@ An identifier supplied in the source Darwin Core Archive for the name string rec
 
 package Bio::Taxonomy::GlobalNames::Output::Data::Results;
 
-use Moo;
+use Moo::Lax;
 
 ##################################################
 # Results object attributes with ro permissions. #
@@ -673,7 +673,7 @@ The name of the data source.
 
 package Bio::Taxonomy::GlobalNames::Output::DataSources;
 
-use Moo;
+use Moo::Lax;
 
 ######################################################
 # DataSources object attributes with ro permissions. #
@@ -752,7 +752,7 @@ True if 'with_context' parameter is set to true and vice versa.
 
 package Bio::Taxonomy::GlobalNames::Output::Parameters;
 
-use Moo;
+use Moo::Lax;
 
 #####################################################
 # Parameters object attributes with ro permissions. #
@@ -819,7 +819,7 @@ The id of a data source used to create the context.
 
 package Bio::Taxonomy::GlobalNames::Output::Context;
 
-use Moo;
+use Moo::Lax;
 
 ##################################################
 # Context object attributes with ro permissions. #

@@ -11,7 +11,7 @@ WriteMakefile(
     ABSTRACT_FROM      => 'lib/Bio/Taxonomy/GlobalNames.pm',
     LICENSE            => 'perl',
     PL_FILES           => {},
-    MIN_PERL_VERSION   => 5.006,
+    MIN_PERL_VERSION   => 5.10.0,
     CONFIGURE_REQUIRES => { 'ExtUtils::MakeMaker' => 0, },
     BUILD_REQUIRES     => {
         'Test::More'      => 0,
@@ -20,7 +20,7 @@ WriteMakefile(
     PREREQ_PM => {
         'JSON'             => 2.90,
         'JSON::Parse'      => 0.23,
-        'Moo'              => 1.003001,
+        'Moo::Lax'         => 0.12,
         'REST::Client'     => 249,
         'Scalar::Readonly' => 0.03,
     },
