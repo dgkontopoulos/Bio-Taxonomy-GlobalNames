@@ -6,6 +6,7 @@ use warnings;
 
 use JSON qw(encode_json);
 use JSON::Parse qw(parse_json);
+use LWP::UserAgent;
 use Moo::Lax;
 use REST::Client;
 use Scalar::Readonly;
@@ -16,11 +17,11 @@ Bio::Taxonomy::GlobalNames - Perlish OO bindings to the L<Global Names Resolver|
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 SYNOPSIS
 
@@ -165,6 +166,16 @@ has with_context => (
     },
 );
 
+# Make sure that the website is up.
+sub check_status
+{
+    my ($url) = @_;
+
+    my $ua = LWP::UserAgent->new( timeout => 5 );
+    my $response = $ua->get($url);
+    return $response->is_success ? 1 : 0;
+}
+
 =head3 Methods for Bio::Taxonomy::GlobalNames objects
 
 =over 1
@@ -205,9 +216,24 @@ sub get
         $name = '?names=' . $proper_data;
     }
 
+    my $gnr_url;
+    if ( check_status('http://resolver.globalnames.org/') )
+    {
+        $gnr_url = 'http://resolver.globalnames.org/name_resolvers.json';
+    }
+    elsif ( check_status('http://resolver.globalnames.biodinfo.org') )
+    {
+        $gnr_url =
+          'http://resolver.globalnames.biodinfo.org/name_resolvers.json';
+    }
+    else
+    {
+        die "The Global Names Resolver website is down.\n";
+    }
+
     # Create the target url.
     my $url =
-        'http://resolver.globalnames.org/name_resolvers.json'
+        $gnr_url 
       . $name
       . '&resolve_once='
       . $self->resolve_once
@@ -295,12 +321,25 @@ sub post
     # Inform the server that we're sending JSON encoded content.
     my $headers = { Content_Type => 'application/json' };
 
+    my $gnr_url;
+    if ( check_status('http://resolver.globalnames.org/') )
+    {
+        $gnr_url = 'http://resolver.globalnames.org/name_resolvers';
+    }
+    elsif ( check_status('http://resolver.globalnames.biodinfo.org') )
+    {
+        $gnr_url = 'http://resolver.globalnames.biodinfo.org/name_resolvers';
+    }
+    else
+    {
+        die "The Global Names Resolver website is down.\n";
+    }
+
     # Encode data to JSON format, create the REST client and perform
     # a POST request.
     my $data        = encode_json($body);
     my $rest_client = REST::Client->new();
-    $rest_client->POST( 'http://resolver.globalnames.org/name_resolvers',
-        ( $data, $headers ) );
+    $rest_client->POST( $gnr_url, ( $data, $headers ) );
 
     # Parse the results in JSON format and return them
     # as an Output object.
@@ -907,7 +946,7 @@ L<https://github.com/dgkontopoulos/Bio-Taxonomy-GlobalNames>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2013 Dimitrios - Georgios Kontopoulos.
+Copyright 2013-14 Dimitrios - Georgios Kontopoulos.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

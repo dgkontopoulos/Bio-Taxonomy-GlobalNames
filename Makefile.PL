@@ -14,12 +14,14 @@ WriteMakefile(
     MIN_PERL_VERSION   => 5.10.0,
     CONFIGURE_REQUIRES => { 'ExtUtils::MakeMaker' => 0, },
     BUILD_REQUIRES     => {
+        'LWP::UserAgent'  => 6.05,
         'Test::More'      => 0,
         'Test::Exception' => 0,
     },
     PREREQ_PM => {
         'JSON'             => 2.90,
         'JSON::Parse'      => 0.23,
+        'LWP::UserAgent'   => 6.05,
         'Moo::Lax'         => 0.12,
         'REST::Client'     => 249,
         'Scalar::Readonly' => 0.03,

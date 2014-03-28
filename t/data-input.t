@@ -4,10 +4,20 @@ use 5.8.1;
 use strict;
 use warnings FATAL => 'all';
 
+use LWP::UserAgent;
 use Test::Exception;
 use Test::More;
 
-plan tests => 10;
+# Make sure that a GNR website is up.
+if (    !check_status('http://resolver.globalnames.org/')
+    and !check_status('http://resolver.globalnames.biodinfo.org') )
+{
+    plan skip_all => 'The Global Names Resolver website is down.';
+}
+else
+{
+    plan tests => 10;
+}
 
 use Bio::Taxonomy::GlobalNames;
 
@@ -110,4 +120,14 @@ use Bio::Taxonomy::GlobalNames;
     'Entered "potato" in resolve_once.';
     dies_ok { $query->with_context = 'for pony' }
     'Entered "for pony" in with_context.';
+}
+
+# Make sure that the website is up.
+sub check_status
+{
+    my ($url) = @_;
+
+    my $ua = LWP::UserAgent->new( timeout => 5 );
+    my $response = $ua->get($url);
+    return $response->is_success ? 1 : 0;
 }
