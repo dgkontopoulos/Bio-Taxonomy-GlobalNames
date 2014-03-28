@@ -17,11 +17,11 @@ Bio::Taxonomy::GlobalNames - Perlish OO bindings to the L<Global Names Resolver|
 
 =head1 VERSION
 
-Version 0.05
+Version 0.06
 
 =cut
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 =head1 SYNOPSIS
 
@@ -167,7 +167,7 @@ has with_context => (
 );
 
 # Make sure that the website is up.
-sub check_status
+sub _check_status
 {
     my ($url) = @_;
 
@@ -217,11 +217,11 @@ sub get
     }
 
     my $gnr_url;
-    if ( check_status('http://resolver.globalnames.org/') )
+    if ( _check_status('http://resolver.globalnames.org/') )
     {
         $gnr_url = 'http://resolver.globalnames.org/name_resolvers.json';
     }
-    elsif ( check_status('http://resolver.globalnames.biodinfo.org') )
+    elsif ( _check_status('http://resolver.globalnames.biodinfo.org') )
     {
         $gnr_url =
           'http://resolver.globalnames.biodinfo.org/name_resolvers.json';
@@ -322,11 +322,11 @@ sub post
     my $headers = { Content_Type => 'application/json' };
 
     my $gnr_url;
-    if ( check_status('http://resolver.globalnames.org/') )
+    if ( _check_status('http://resolver.globalnames.org/') )
     {
         $gnr_url = 'http://resolver.globalnames.org/name_resolvers';
     }
-    elsif ( check_status('http://resolver.globalnames.biodinfo.org') )
+    elsif ( _check_status('http://resolver.globalnames.biodinfo.org') )
     {
         $gnr_url = 'http://resolver.globalnames.biodinfo.org/name_resolvers';
     }

@@ -1,5 +1,8 @@
 Revision history for Bio-Taxonomy-GlobalNames
 
+0.06    2014-03-28 17:40
+    - Fixed a pod bug where a private subroutine was marked as naked.
+
 0.05    2014-03-28 14:54
     - The module now checks if the GNR website is up.
 
