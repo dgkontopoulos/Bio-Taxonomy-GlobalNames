@@ -7,6 +7,7 @@ use warnings FATAL => 'all';
 use LWP::UserAgent;
 use Test::Exception;
 use Test::More;
+use utf8;
 
 # Make sure that a GNR website is up.
 if (    !check_status('http://resolver.globalnames.org/')

@@ -23,6 +23,7 @@ WriteMakefile(
         'JSON::Parse'      => 0.23,
         'LWP::UserAgent'   => 6.05,
         'Moo::Lax'         => 0.12,
+        'Moo'              => 1.004005,
         'REST::Client'     => 249,
         'Scalar::Readonly' => 0.03,
     },
